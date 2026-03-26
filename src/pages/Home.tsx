@@ -24,10 +24,22 @@ function HomePage() {
   console.log(tasks.length);
 
   return (
-    <div className="flex flex-col items-center justify-center min-h-screen min-w-screen bg-white rounded-md p-4">
-      <h1 className="text-2xl font-bold text-center mb-4">Task Manager</h1>
-      <TaskList tasks={tasks} setTasks={setTasks} />
-      <AddTaskForm setTasks={setTasks} />
+    <div className="min-h-screen bg-gradient-to-b from-slate-50 to-white px-4 py-10">
+      <div className="mx-auto w-full max-w-5xl rounded-2xl bg-white p-6 shadow-sm ring-1 ring-slate-200">
+        <div className="mb-6 flex items-start justify-between gap-4">
+          <h1 className="text-2xl font-bold tracking-tight text-slate-900">Task Manager</h1>
+          <div className="text-sm text-slate-500">Manage your tasks in one place</div>
+        </div>
+
+        <div className="flex flex-col gap-6 md:flex-row md:items-start">
+          <section className="min-w-0 flex-1">
+            <TaskList tasks={tasks} setTasks={setTasks} />
+          </section>
+          <aside className="w-full md:w-96">
+            <AddTaskForm setTasks={setTasks} />
+          </aside>
+        </div>
+      </div>
     </div>
   );
 }

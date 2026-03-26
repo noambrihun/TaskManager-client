@@ -1,25 +1,15 @@
 import { useState } from "react";
+import type { SetTasks } from "../types/task";
+import type { Task } from "../types/task";
 
-type Task = {
-    _id: string;
-    title: string;
-    description: string;
-    completed: boolean;
-    completedAt: string | null;
-    createdAt: string;
-}
-
-type AddTaskFormProps = {
-    setTasks: React.Dispatch<React.SetStateAction<Task[]>>;
-};
-
-function AddTaskForm({ setTasks }: AddTaskFormProps) {
+function AddTaskForm({ setTasks }: { setTasks: SetTasks }) {
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
   const [completed, setCompleted] = useState(false);
   
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+    const completedAt = completed ? new Date().toISOString() : null;
   
     const res = await fetch("http://localhost:3000/api/tasks", {
       method: "POST",
@@ -30,13 +20,18 @@ function AddTaskForm({ setTasks }: AddTaskFormProps) {
         title: title,
         description: description,
         completed: completed,
-        completedAt: completed ? new Date().toISOString() : null
+        completedAt
       })
     });
   
     const newTask = await res.json();
+    const normalizedTask: Task = {
+      ...newTask,
+      completed: typeof newTask.completed === "boolean" ? newTask.completed : completed,
+      completedAt: newTask.completedAt ?? completedAt
+    };
   
-    setTasks((prevTasks: Task[]) => [...prevTasks, newTask]);
+    setTasks((prevTasks: Task[]) => [...prevTasks, normalizedTask]);
   
     setTitle("");
     setDescription("");
@@ -64,13 +59,7 @@ function AddTaskForm({ setTasks }: AddTaskFormProps) {
         value={description}
         onChange={(e) => setDescription(e.target.value)}
       />
-      <input
-        type="text"
-        placeholder="Completed at..."
-        value={description}
-        onChange={(e) => setDescription(e.target.value)}
-      />
-
+      
       <button className="bg-blue-500 text-white p-2 rounded-md" type="submit">
         Add Task
       </button>
