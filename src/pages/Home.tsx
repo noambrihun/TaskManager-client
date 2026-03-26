@@ -26,7 +26,7 @@ function HomePage() {
   return (
     <div className="flex flex-col items-center justify-center min-h-screen min-w-screen bg-white rounded-md p-4">
       <h1 className="text-2xl font-bold text-center mb-4">Task Manager</h1>
-      <TaskList tasks={tasks} />
+      <TaskList tasks={tasks} setTasks={setTasks} />
       <AddTaskForm setTasks={setTasks} />
     </div>
   );

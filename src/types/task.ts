@@ -7,3 +7,4 @@ export type Task = {
     createdAt: string;
 };
 
+export type SetTasks = React.Dispatch<React.SetStateAction<Task[]>>

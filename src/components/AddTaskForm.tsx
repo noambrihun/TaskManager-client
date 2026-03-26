@@ -44,7 +44,7 @@ function AddTaskForm({ setTasks }: AddTaskFormProps) {
   };
 
   return (
-    <form className="flex flex-col gap-2" onSubmit={handleSubmit}>
+    <form className="flex flex-col gap-2 border-2 border-gray-600 p-2 rounded-md shadow-md" onSubmit={handleSubmit}>
       <input
         type="text"
         placeholder="New task..."
