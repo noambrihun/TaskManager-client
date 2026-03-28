@@ -1,6 +1,7 @@
 import { useState } from "react";
 import type { SetTasks } from "../types/task";
 import type { Task } from "../types/task";
+import { BASE_URL } from "../api";
 
 function AddTaskForm({ setTasks }: { setTasks: SetTasks }) {
   const [title, setTitle] = useState("");
@@ -11,7 +12,7 @@ function AddTaskForm({ setTasks }: { setTasks: SetTasks }) {
     e.preventDefault();
     const completedAt = completed ? new Date().toISOString() : null;
   
-    const res = await fetch("http://localhost:3000/api/tasks", {
+    const res = await fetch(`${BASE_URL}/api/tasks`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json"

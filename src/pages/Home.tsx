@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import TaskList from "../components/TaskList";
 import AddTaskForm from "../components/AddTaskForm";
 import type { Task } from "../types/task";
+import { BASE_URL } from "../api";
 
 
 function HomePage() {
@@ -9,7 +10,7 @@ function HomePage() {
   const [tasks, setTasks] = useState<Task[]>([]);
 
   useEffect(() => {
-    fetch("http://localhost:3000/api/tasks")
+    fetch(`${BASE_URL}/api/tasks`)
       .then(res => res.json())
       .then(data => setTasks(data));
   }, []);

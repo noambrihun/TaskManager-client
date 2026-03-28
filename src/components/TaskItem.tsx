@@ -1,6 +1,7 @@
 import type { Task } from "../types/task";
 import type { SetTasks } from "../types/task";
 import { useState } from "react";
+import { BASE_URL } from "../api";
 
   function TaskItem({ task , setTasks }: { task: Task, setTasks: SetTasks }) {
     const [isEditing, setIsEditing] = useState(false)
@@ -8,7 +9,7 @@ import { useState } from "react";
     const [editDescription, setEditDescription] = useState(task.description)
 
     const handleDelete = async () => {
-        await fetch(`http://localhost:3000/api/tasks/${task._id}`, {
+        await fetch(`${BASE_URL}/api/tasks/${task._id}`, {
             method: "DELETE"
         });
         setTasks((prevTasks: Task[]) => prevTasks.filter((t: Task) => t._id !== task._id));
@@ -17,7 +18,7 @@ import { useState } from "react";
     
     async function toggleTask() {
 
-        const res = await fetch(`http://localhost:3000/api/tasks/${task._id}`, {
+        const res = await fetch(`${BASE_URL}/api/tasks/${task._id}`, {
           method: "PUT",
           headers: {
             "Content-Type": "application/json"
@@ -39,7 +40,7 @@ import { useState } from "react";
 
       async function handleUpdate() {
 
-        const res = await fetch(`http://localhost:3000/api/tasks/${task._id}`, {
+        const res = await fetch(`${BASE_URL}/api/tasks/${task._id}`, {
           method: "PUT",
           headers: {
             "Content-Type": "application/json"
