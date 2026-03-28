@@ -1,15 +1,9 @@
 import { useState, useEffect } from "react";
 import TaskList from "../components/TaskList";
 import AddTaskForm from "../components/AddTaskForm";
+import type { Task } from "../types/task";
 
-type Task = {
-  _id: string;
-  title: string;
-  description: string;
-  completed: boolean;
-  completedAt: string | null;
-  createdAt: string;
-};
+
 function HomePage() {
 
   const [tasks, setTasks] = useState<Task[]>([]);
