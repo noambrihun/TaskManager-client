@@ -11,8 +11,12 @@ function HomePage() {
 
   useEffect(() => {
     fetch(`${BASE_URL}/api/tasks`)
-      .then(res => res.json())
-      .then(data => setTasks(data));
+      .then((res) => {
+        if (!res.ok) throw new Error(`HTTP ${res.status}`);
+        return res.json();
+      })
+      .then((data) => setTasks(data))
+      .catch((err) => console.error("Failed to load tasks:", err));
   }, []);
 
   console.log(tasks);
